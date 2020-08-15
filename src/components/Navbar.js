@@ -19,10 +19,10 @@ export const Navbar = () => {
     return (
 
         <Router>
-            <MDBNavbar color="default-color" transparent expand="md" fixed="top">
+            <MDBNavbar color="pink" dark expand="md" >
                 <MDBNavbarBrand>
-                    <a>
-                        <img className="white-text" src="https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png" width="40" height="35" />
+                    <a href="http://google.com.ar">
+                        <img className="white-text" src="https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png" alt="pokeball" width="40" height="35" />
                     </a>
                 </MDBNavbarBrand>
                 <MDBNavbarToggler onClick={toggleCollapse} />
