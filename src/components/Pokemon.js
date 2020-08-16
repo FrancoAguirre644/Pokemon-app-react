@@ -12,7 +12,7 @@ export const Pokemon = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.get(" https://pokeapi.co/api/v2/pokemon/" + search)
+        axios.get("https://pokeapi.co/api/v2/pokemon/" + search)
             .then(response => {
                 setPokemon(response.data);
                 console.log(response.data);
@@ -33,7 +33,7 @@ export const Pokemon = () => {
 
                     <form onSubmit={(e) => handleSubmit(e)}>
 
-                        <MDBInput label="E-mail address" outline icon="search" onChange={(e) => setSearch(e.target.value)} />
+                        <MDBInput label="Pokemon name" outline icon="search" onChange={(e) => setSearch(e.target.value)} />
 
                     </form>
 

@@ -8,3 +8,45 @@
 .card img{
   height: 16rem;
 }
+
+.sprite {
+  display: block;
+  width: 130px;
+  margin: 0px auto;
+}
+
+.card-pokemon{
+  width: 1000;
+  background-color: #FFCE00;
+  color: #F3F3F3;
+
+}
+
+.catch-btn {
+  width: 200px;
+  height: 35px;
+  display: block;
+  margin: 25px auto;
+  background: #FFCE00;
+  border: none;
+  outline: none;
+  color: #171717;
+}
+
+.card-pokedex{
+  background-color: #d8d3cd;
+  margin: 0.5em;
+}
+
+.card-pokedex button{
+  outline: none;
+  border: none;
+  float: right;
+  background-color: transparent;
+  color: #797a7e;
+  margin-top: 5px;
+}
+
+.card-pokedex button:hover{
+  color: #595a5e;
+}

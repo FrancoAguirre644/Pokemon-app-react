@@ -5,15 +5,26 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import { Navbar } from './components/Navbar';
 import { Pokemon } from './components/Pokemon';
-import { MDBBtn, MDBMask, MDBCard, MDBContainer, MDBInput, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBView, MDBIcon } from 'mdbreact';
-
+import { Pokedex } from './components/Pokedex';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 function App() {
   return (
     <div className="view">
 
-      <Navbar />
-      <Pokemon />
+      <BrowserRouter>
+
+        <Navbar />
+
+        <Switch>
+
+          <Route exact path="/" component={Pokemon} />
+          <Route exact path="/pokedex" component={Pokedex} />
+
+
+        </Switch>
+
+      </BrowserRouter>
 
     </div>
 
