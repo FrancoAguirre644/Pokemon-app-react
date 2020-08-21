@@ -22,7 +22,7 @@ export const Navbar = () => {
             <MDBNavbar color="pink" dark expand="md" >
                 <MDBNavbarBrand>
                     <a href="http://google.com.ar">
-                        <img className="white-text" src="https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png" alt="pokeball" width="40" height="35" />
+                        <img className="white-text" src="https://www.pngkey.com/png/full/757-7574864_bola-pokemon-png.png" alt="pokeball" width="40" height="35" />
                     </a>
                 </MDBNavbarBrand>
                 <MDBNavbarToggler onClick={toggleCollapse} />

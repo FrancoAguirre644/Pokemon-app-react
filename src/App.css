@@ -5,9 +5,7 @@
   height: 100vh;
 }
 
-.card img{
-  height: 16rem;
-}
+
 
 .sprite {
   display: block;
@@ -49,4 +47,21 @@
 
 .card-pokedex button:hover{
   color: #595a5e;
+}
+
+.type {
+  margin-right: 8px;
+	padding: 5px 8px 5px 8px;
+	display: inline-block;
+	border-radius: 6px;
+	-webkit-border-radius: 6px; 
+	-moz-border-radius: 6px;
+	-o-border-radius: 6px;
+	font-size: 13px;
+	font-family: "helvetica neue", Helvetica, Verdana, sans-serif;
+	color: #FFF;
+	background-color: #68A090;
+  border: 1px solid #44685E;
+  cursor: pointer;
+  color: #53a4cf
 }

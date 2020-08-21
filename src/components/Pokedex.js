@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios'
-import { MDBBtn, MDBMask, MDBCard, MDBContainer, MDBInput, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBView, MDBIcon } from 'mdbreact';
+import { MDBBtn, MDBMask, MDBNavbarBrand, MDBCard, MDBContainer, MDBInput, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBView, MDBIcon } from 'mdbreact';
 
 export const Pokedex = () => {
 
@@ -8,8 +8,11 @@ export const Pokedex = () => {
 
     const [pokemon, setPokemon] = useState({});
 
+    const [message, setMessage] = useState("");
+
     useEffect(() => {
         encounterWildPokemon();
+        setMessage("You haven't caught any pokemon yet. What are you waiting for?")
     }, []);
 
     const encounterWildPokemon = () => {
@@ -69,19 +72,16 @@ export const Pokedex = () => {
                 </MDBCol>
             </MDBRow>
 
-            <MDBRow className="pt-3 pl-3">
-
-                <MDBCol md="3">
-                    <MDBCardTitle className="text-uppercase text-black font-weight-bold">pokedex</MDBCardTitle>
-                </MDBCol>
-
-            </MDBRow>
+            <div className="d-flex flex-row pt-3">
+                <img className="pl-2" src="https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2018-08-03/410145857620_d507b9b2cd0b86329b48_512.png" alt="pokeball" width="50" height="35" />
+                <div className="pt-1 ml-2"><MDBCardTitle className="text-uppercase text-black font-weight-bold">pokedex</MDBCardTitle></div>
+            </div>
 
             <MDBRow className="p-3" >
 
                 {
 
-                    pokedex.map((p) => (
+                    pokedex && (pokedex.map((p) => (
                         <MDBCol className="card-pokedex" md="2">
                             <button onClick={() => removePokemon(p.id)}><i class="fas fa-times"></i></button>
 
@@ -92,13 +92,14 @@ export const Pokedex = () => {
                         </MDBCol>
 
                     ))
+                    )
 
                 }
 
             </MDBRow>
 
 
-        </Fragment>
+        </Fragment >
 
     )
 }

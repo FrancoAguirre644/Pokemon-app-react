@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { MDBBtn, MDBMask, MDBCard, MDBContainer, MDBInput, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBView, MDBIcon } from 'mdbreact';
+import React, { useState, Fragment, useEffect } from 'react';
+import { MDBBtn, MDBProgress, MDBMask, MDBCard, MDBContainer, MDBInput, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBView, MDBIcon } from 'mdbreact';
 import axios from 'axios';
-import { typeColors } from '../helpers/typeColors'
+import { typeColors } from '../helpers/typeColors';
+import { Pokemons } from '../components/Pokemons';
 
 export const Pokemon = () => {
 
@@ -9,13 +10,13 @@ export const Pokemon = () => {
 
     const [pokemon, setPokemon] = useState(undefined);
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         axios.get("https://pokeapi.co/api/v2/pokemon/" + search)
             .then(response => {
                 setPokemon(response.data);
-                console.log(response.data);
             })
             .catch(e => {
                 console.log(e);
@@ -26,8 +27,8 @@ export const Pokemon = () => {
 
     return (
 
-        <MDBContainer >
-            <MDBRow className="justify-content-center">
+        <Fragment >
+            <MDBRow className="justify-content-center p-2">
 
                 <MDBCol md="5">
 
@@ -42,30 +43,67 @@ export const Pokemon = () => {
             </MDBRow>
 
             {
-                pokemon && (<MDBRow className="justify-content-center" >
+                pokemon && (<MDBRow className="justify-content-center m-3" >
 
-                    <MDBCol md="6">
-                        <MDBCard>
-                            <img src={pokemon.sprites.back_default}
-                            />
+                    <MDBCol md="3">
+                        <MDBCard className="p-2" style={{ backgroundColor: typeColors[pokemon.types[0].type.name] }}>
+                            <img className="sprite" src={pokemon.sprites.front_default} />
 
-                            <MDBCardBody>
-                                <MDBCardTitle className="text-center text-capitalize">{pokemon.name}</MDBCardTitle>
-                                <div className="text-center m-3">
-                                    {
-                                        pokemon.types.map(type => {
-                                            return (
-                                                <button className="btn btn" style={{ backgroundColor: typeColors[type.type.name] }}>
-                                                    {type.type.name}
-                                                </button>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                <MDBCardText>Some quick example text to build on the card title and make up the bulk of the card's content.</MDBCardText>
-                                <MDBCardText>Some quick example text to build on the card title and make up the bulk of the card's content.</MDBCardText>
-                            </MDBCardBody>
+                            <MDBCardTitle className="text-center text-uppercase font-weight-bold text-black">{pokemon.name}</MDBCardTitle>
+                            <div className="container text-center mb-3">
+                                {
+                                    pokemon.types.map(type => {
+                                        return (
+                                            <div key={type.name} className="type text-capitalize" style={{ backgroundColor: typeColors[type.type.name] }}>
+                                                {type.type.name}
+                                            </div>
+                                        )
+                                    })
+
+                                }
+
+                            </div>
+
+                            <div className="d-flex flex-row pt-3">
+
+                                <div className="text-capitalize font-weight-bold pr-2">Ability:</div>
+
+                                {
+                                    pokemon.abilities.map(ability => {
+                                        return (
+
+                                            <div className="text-capitalize">{ability.ability.name} </div>
+
+                                        )
+                                    })
+                                }
+
+                            </div>
+
+
+
+                            <MDBCardText  >
+
+                                {
+                                    pokemon.stats.map(stat => {
+                                        return (
+                                            <div className="d-flex flex-row pt-3">
+
+                                                <div className="text-capitalize font-weight-bold">{stat.stat.name}: </div>
+                                                <div className="text-capitalize">{stat.base_stat} </div>
+
+                                            </div>
+
+                                        )
+                                    })
+                                }
+
+
+
+                            </MDBCardText>
+
                         </MDBCard>
+
                     </MDBCol>
 
 
@@ -73,10 +111,13 @@ export const Pokemon = () => {
 
             }
 
+            <Pokemons />
 
 
 
-        </MDBContainer >
+
+
+        </Fragment >
 
 
 
