@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios'
-import { MDBBtn, MDBMask, MDBNavbarBrand, MDBCard, MDBContainer, MDBInput, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBView, MDBIcon } from 'mdbreact';
+import { MDBCardTitle, MDBRow, MDBCol, } from 'mdbreact';
+
 
 export const Pokedex = () => {
 
@@ -8,11 +9,10 @@ export const Pokedex = () => {
 
     const [pokemon, setPokemon] = useState({});
 
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState("You haven't caught any pokemon yet. What are you waiting for?");
 
     useEffect(() => {
         encounterWildPokemon();
-        setMessage("You haven't caught any pokemon yet. What are you waiting for?")
     }, []);
 
     const encounterWildPokemon = () => {
@@ -48,7 +48,6 @@ export const Pokedex = () => {
             }
         });
 
-
         encounterWildPokemon();
 
     }
@@ -77,13 +76,19 @@ export const Pokedex = () => {
                 <div className="pt-1 ml-2"><MDBCardTitle className="text-uppercase text-black font-weight-bold">pokedex</MDBCardTitle></div>
             </div>
 
+            {
+                message && (
+                    <div className="pt-1 ml-2"><MDBCardTitle className="h5 text-capitalize text-black font-weight-bold">{message}</MDBCardTitle></div>
+                )
+            }
+
             <MDBRow className="p-3" >
 
                 {
 
                     pokedex && (pokedex.map((p) => (
                         <MDBCol className="card-pokedex" md="2">
-                            <button onClick={() => removePokemon(p.id)}><i class="fas fa-times"></i></button>
+                            <button className="btn-remove" onClick={() => removePokemon(p.id)}><i class="fas fa-times"></i></button>
 
                             <img className="sprite" src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + p.id + ".png"}
                             />

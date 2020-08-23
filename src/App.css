@@ -1,11 +1,8 @@
-#classicformpage .view {
+.view {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  height: 100vh;
 }
-
-
 
 .sprite {
   display: block;
@@ -36,7 +33,7 @@
   margin: 0.5em;
 }
 
-.card-pokedex button{
+.btn-remove{
   outline: none;
   border: none;
   float: right;
@@ -45,7 +42,7 @@
   margin-top: 5px;
 }
 
-.card-pokedex button:hover{
+.btn-remove:hover {
   color: #595a5e;
 }
 
@@ -63,5 +60,86 @@
 	background-color: #68A090;
   border: 1px solid #44685E;
   cursor: pointer;
-  color: #53a4cf
+}
+
+.toggle {
+  position: relative;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+}
+
+input[type="checkbox"].checkbox {
+  width: 40px;
+  height: 10px;
+  background: #555;
+  position: relative;
+  border-radius: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  vertical-align: 2px;
+  outline: none;
+}
+
+input[type="checkbox"].checkbox:checked + label {
+  left: 30px;
+}
+
+input[type="checkbox"].checkbox:focus-visible {
+  outline: solid 2px white;
+}
+
+input[type="checkbox"].checkbox + label {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: absolute;
+  left: 2px;
+  top: 5px;
+  background: #fff;
+  opacity: 0.9;
+  background-color: cyan;
+}
+
+.toggle-container {
+  display: flex;
+  margin: 0 auto;
+  width: 110px;
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+.toggle-container > span {
+  margin: 0 auto;
+  font-size: 1.2em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-top: 4px;
+  margin-right: 7px;
+  
+}
+
+.toggle-container > span:last-child {
+  margin-top: 5px;
+}
+
+.bg-dark-mode{
+  background-color: black;
+}
+
+input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=search-md]:focus:not([readonly]), input[type=search]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=url]:focus:not([readonly]), textarea.md-textarea:focus:not([readonly]) {
+  border-bottom: 2px solid #f44295 !important;
+  box-shadow: 0 1px 0 0 #f44295 !important;
+  color: #f44295;
+}
+
+.form-control{
+  background-color: transparent !important;
 }

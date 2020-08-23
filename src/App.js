@@ -6,27 +6,61 @@ import 'mdbreact/dist/css/mdb.css';
 import { Navbar } from './components/Navbar';
 import { Pokemon } from './components/Pokemon';
 import { Pokedex } from './components/Pokedex';
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { ThemeProvider } from "styled-components";
+import { GlobalStyles } from "./helpers/GlobalStyles";
+import { lightTheme, darkTheme } from "./helpers/themes";
+import { useDarkMode } from "./helpers/useDarkMode";
 
 function App() {
-  return (
-    <div className="view">
 
-      <BrowserRouter>
+  const [theme, themeToggler] = useDarkMode();
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
 
-        <Navbar />
-
-        <Switch>
-
-          <Route exact path="/" component={Pokemon} />
-          <Route exact path="/pokedex" component={Pokedex} />
-
-
-        </Switch>
-
-      </BrowserRouter>
-
+  const checkboxTheme = (
+    <div className="toggle-container">
+      <span style={{ color: themeMode === darkTheme ? "grey" : "yellow" }}>☀︎</span>
+      <span className="toggle">
+        <input
+          onChange={themeToggler}
+          id="checkbox"
+          className="checkbox"
+          type="checkbox"
+          checked={themeMode === darkTheme ? true : false}
+        />
+        <label htmlFor="checkbox" />
+      </span>
+      <span style={{ color: themeMode === darkTheme ? "slateblue" : "grey" }}>☾</span>
     </div>
+  )
+
+  return (
+
+    <ThemeProvider theme={themeMode}>
+      <>
+        <GlobalStyles />
+
+        <div className="view">
+
+          <BrowserRouter>
+
+            <Navbar />
+
+            {checkboxTheme}
+
+            <Switch>
+
+              <Route exact path="/" component={Pokemon} />
+              <Route exact path="/pokedex" component={Pokedex} />
+
+            </Switch>
+
+          </BrowserRouter>
+
+        </div>
+      </>
+    </ThemeProvider>
+
 
   );
 }
