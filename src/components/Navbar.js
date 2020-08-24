@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse } from "mdbreact";
 import { Link } from 'react-router-dom';
-import { useDarkMode } from "../helpers/useDarkMode";
-import { lightTheme, darkTheme } from "../helpers/themes";
-
 
 export const Navbar = () => {
 
@@ -18,7 +15,7 @@ export const Navbar = () => {
         <MDBNavbar dark expand="md" >
             <MDBNavbarBrand>
                 <Link to="/">
-                    <img className="white-text" src="https://www.pngkey.com/png/full/757-7574864_bola-pokemon-png.png" alt="pokeball" width="40" height="35" />
+                    <img className="white-text" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Pokebola-pokeball-png-0.png" alt="pokeball" width="40" height="35" />
                 </Link>
             </MDBNavbarBrand>
             <MDBNavbarToggler onClick={toggleCollapse} />

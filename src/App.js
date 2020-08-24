@@ -8,9 +8,9 @@ import { Pokemon } from './components/Pokemon';
 import { Pokedex } from './components/Pokedex';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
-import { GlobalStyles } from "./helpers/GlobalStyles";
-import { lightTheme, darkTheme } from "./helpers/themes";
-import { useDarkMode } from "./helpers/useDarkMode";
+import { GlobalStyles } from "./helpers/themes/GlobalStyles";
+import { lightTheme, darkTheme } from "./helpers/themes/themes";
+import { useDarkMode } from "./helpers/themes/useDarkMode";
 
 function App() {
 

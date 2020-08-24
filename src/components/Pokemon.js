@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from 'react';
 import { MDBProgress, MDBCard, MDBInput, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact';
 import axios from 'axios';
-import { typeColors } from '../helpers/typeColors';
-import { typeColorsCards } from '../helpers/typeColorsCards';
+import { typeColors } from '../helpers/typeColors/typeColors';
+import { typeColorsCards } from '../helpers/typeColors/typeColorsCards';
 import { Pokemons } from '../components/Pokemons';
 
 export const Pokemon = () => {
@@ -26,6 +26,7 @@ export const Pokemon = () => {
     return (
 
         <Fragment >
+
             <MDBRow className="justify-content-center p-2">
 
                 <MDBCol md="5">
@@ -50,9 +51,9 @@ export const Pokemon = () => {
                             <MDBCardTitle className="text-center text-uppercase font-weight-bold text-black">{pokemon.name}</MDBCardTitle>
                             <div className="container text-center mb-3">
                                 {
-                                    pokemon.types.map(type => {
+                                    pokemon.types.map((type, i) => {
                                         return (
-                                            <div key={type.name} className="type text-uppercase" style={{ backgroundColor: typeColors[type.type.name] }}>
+                                            <div key={i} className="type text-uppercase" style={{ backgroundColor: typeColors[type.type.name] }}>
                                                 {type.type.name}
                                             </div>
                                         )
@@ -67,10 +68,10 @@ export const Pokemon = () => {
                                 <div className="text-uppercase font-weight-bold pr-2">Ability:</div>
 
                                 {
-                                    pokemon.abilities.map(ability => {
+                                    pokemon.abilities.map((ability, i) => {
                                         return (
 
-                                            <div>{ability.ability.name} </div>
+                                            <div key={i}>{ability.ability.name} </div>
 
                                         )
                                     })
@@ -87,7 +88,6 @@ export const Pokemon = () => {
 
                                                 <div className="text-capitalize font-weight-bold">{stat.stat.name}: </div>
                                                 <MDBProgress value={stat.base_stat} max={255} />
-
 
                                             </div>
 

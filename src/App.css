@@ -140,6 +140,10 @@ input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([re
   color: #f44295;
 }
 
+.md-form input[type='text']:focus:not([readonly]) + label {
+  color: #f44295 !important;
+}
+
 .form-control{
   background-color: transparent !important;
 }

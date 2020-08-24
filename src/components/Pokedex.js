@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios'
 import { MDBCardTitle, MDBRow, MDBCol, } from 'mdbreact';
 
-
 export const Pokedex = () => {
 
     const [pokedex, setPokedex] = useState([]);
@@ -48,6 +47,8 @@ export const Pokedex = () => {
             }
         });
 
+        if (pokedex.length === 0) setMessage("");
+
         encounterWildPokemon();
 
     }
@@ -63,7 +64,7 @@ export const Pokedex = () => {
                 <MDBCol md="3">
                     <MDBCardTitle className="text-center text-uppercase text-white">wild encounter</MDBCardTitle>
 
-                    <img className="sprite" src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemon.id + ".png"}
+                    <img className="sprite" alt={pokemon.name} src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemon.id + ".png"}
                     />
 
                     <MDBCardTitle className="text-center text-uppercase font-weight-bold text-white">{pokemon.name}</MDBCardTitle>
@@ -78,11 +79,11 @@ export const Pokedex = () => {
 
             {
                 message && (
-                    <div className="pt-1 ml-2"><MDBCardTitle className="h5 text-capitalize text-black font-weight-bold">{message}</MDBCardTitle></div>
+                    <div className="pt-1 ml-3"><MDBCardTitle className="h5 text-capitalize text-black font-weight-bold">{message}</MDBCardTitle></div>
                 )
             }
 
-            <MDBRow className="p-3" >
+            <MDBRow className="justify-content-center p-3" >
 
                 {
 
@@ -90,7 +91,7 @@ export const Pokedex = () => {
                         <MDBCol className="card-pokedex" md="2">
                             <button className="btn-remove" onClick={() => removePokemon(p.id)}><i class="fas fa-times"></i></button>
 
-                            <img className="sprite" src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + p.id + ".png"}
+                            <img className="sprite" alt={p.name} src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + p.id + ".png"}
                             />
                             <MDBCardTitle className="text-center text-uppercase font-weight-bold text-black">#{p.id}</MDBCardTitle>
                             <MDBCardTitle className="text-center text-uppercase font-weight-bold text-black">{p.name}</MDBCardTitle>
@@ -102,7 +103,6 @@ export const Pokedex = () => {
                 }
 
             </MDBRow>
-
 
         </Fragment >
 
