@@ -44,9 +44,7 @@ function App() {
 
           <BrowserRouter>
 
-            <Navbar />
-
-            {checkboxTheme}
+            <Navbar checkboxTheme={checkboxTheme} />
 
             <Switch>
 
@@ -60,7 +58,6 @@ function App() {
         </div>
       </>
     </ThemeProvider>
-
 
   );
 }

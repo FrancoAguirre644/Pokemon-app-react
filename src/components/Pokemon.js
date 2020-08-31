@@ -1,9 +1,9 @@
 import React, { useState, Fragment } from 'react';
 import { MDBProgress, MDBCard, MDBInput, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact';
-import axios from 'axios';
 import { typeColors } from '../helpers/typeColors/typeColors';
 import { typeColorsCards } from '../helpers/typeColors/typeColorsCards';
 import { Pokemons } from '../components/Pokemons';
+import PokemonService from '../services/pokemon.service';
 
 export const Pokemon = () => {
 
@@ -12,14 +12,22 @@ export const Pokemon = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        selectPokemon(search);
 
-        axios.get("https://pokeapi.co/api/v2/pokemon/" + search)
-            .then(response => {
+    }
+
+    const selectPokemon = (search) => {
+
+        if (search === "") return;
+
+        PokemonService.getPokemon(search).then(
+            (response) => {
                 setPokemon(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            })
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
 
     }
 
@@ -90,7 +98,6 @@ export const Pokemon = () => {
                                                 <MDBProgress value={stat.base_stat} max={255} />
 
                                             </div>
-
                                         )
                                     })
                                 }
@@ -106,7 +113,7 @@ export const Pokemon = () => {
             }
 
             {
-                !pokemon && (<Pokemons />)
+                !pokemon && (<Pokemons selectPokemon={selectPokemon} />)
             }
 
         </Fragment >

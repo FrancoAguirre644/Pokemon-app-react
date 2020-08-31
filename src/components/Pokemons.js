@@ -1,18 +1,17 @@
 import React, { useState, Fragment, useEffect } from 'react';
-import axios from 'axios';
 import { MDBRow, MDBCol, MDBCard } from 'mdbreact';
 import { typeColors } from '../helpers/typeColors/typeColors';
 import { typeColorsCards } from '../helpers/typeColors/typeColorsCards';
-import { Pokedex } from './Pokedex';
+import PokemonService from '../services/pokemon.service';
 
-export const Pokemons = () => {
+export const Pokemons = ({ selectPokemon }) => {
 
     const [pokedex, setPokedex] = useState([]);
     const [typePokemon, setTypePokemon] = useState("bug");
 
     useEffect(() => {
         fetchPokemons(1, 151);
-    }, [Pokedex]);
+    }, []);
 
     const fetchPokemons = async (iPokemonNumber, pokemonNumber) => {
 
@@ -22,20 +21,21 @@ export const Pokemons = () => {
 
     }
 
-    const getPokemon = async (id) => {
+    const getPokemon = async (idPokemon) => {
 
-        axios.get("https://pokeapi.co/api/v2/pokemon/" + id)
-            .then(response => {
+        PokemonService.getPokemon(idPokemon).then(
+            (response) => {
                 setPokedex(pokedex => [...pokedex, response.data]);
 
                 setPokedex(state => {
                     state.sort((a, b) => (a.id - b.id));
                     return state;
                 });
-            })
-            .catch(e => {
-                console.log(e);
-            })
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
 
     }
 
@@ -169,7 +169,7 @@ export const Pokemons = () => {
 
             <MDBRow className="justify-content-center p-2">
 
-                <MDBCol md="3" className="pl-2 text-center">
+                <MDBCol md="3" className="pl-2 pt-2 text-center">
 
                     <select className="form-control" onChange={(e) => handleChangeGeneration(e)} >
                         <option value="1">First generation</option>
@@ -184,7 +184,7 @@ export const Pokemons = () => {
 
                 </MDBCol>
 
-                <MDBCol md="3" className="pl-2 text-center">
+                <MDBCol md="3" className="pl-2 pt-2 text-center">
 
                     <select className="form-control" onChange={(e) => handleType(e)} >
                         <option value="bug">Type Bug</option>
@@ -211,17 +211,17 @@ export const Pokemons = () => {
 
             <MDBRow className="justify-content-center p-3">
 
-                {pokedex && (pokedex.filter(person => (person.types.length === 2) ? person.types[0].type.name.includes(typePokemon) || person.types[1].type.name.includes(typePokemon) : person.types[0].type.name.includes(typePokemon)).map(pokemon => {
+                {pokedex && (pokedex.filter(p => (p.types.length === 2) ? p.types[0].type.name.includes(typePokemon) || p.types[1].type.name.includes(typePokemon) : p.types[0].type.name.includes(typePokemon)).map(pokemon => {
                     return (
 
                         <MDBCol md="3" className="p-2 text-center">
-                            <MDBCard style={{ backgroundColor: typeColorsCards[pokemon.types[0].type.name] }} >
+                            <MDBCard className="pointer" style={{ backgroundColor: typeColorsCards[pokemon.types[0].type.name] }} onClick={() => selectPokemon(pokemon.id)} >
 
                                 <div className="text-capitalize font-weight-bold pt-2">
                                     {pokemon.name} (#{pokemon.id})
                                     </div>
 
-                                <img className="sprite" src={pokemon.sprites.front_default}
+                                <img className="sprite" src={pokemon.sprites.front_default} alt={pokemon.name}
                                 />
 
                                 <div className="container text-center mb-3">
@@ -234,7 +234,6 @@ export const Pokemons = () => {
                                                 </div>
                                             )
                                         })
-
                                     }
 
                                 </div>
@@ -252,6 +251,5 @@ export const Pokemons = () => {
         </Fragment >
 
     )
-
 
 }

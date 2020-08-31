@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import axios from 'axios'
 import { MDBCardTitle, MDBRow, MDBCol, } from 'mdbreact';
+import PokemonService from '../services/pokemon.service';
 
 export const Pokedex = () => {
 
@@ -16,23 +16,17 @@ export const Pokedex = () => {
 
     const encounterWildPokemon = () => {
 
-        axios.get("https://pokeapi.co/api/v2/pokemon/" + pokemonId())
-            .then(response => {
-                console.log(response.data);
+        PokemonService.getPokemon(PokemonService.getpokemonId()).then(
+            (response) => {
                 setPokemon(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            })
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
 
     }
 
-    const pokemonId = () => {
-        const min = Math.ceil(1);
-        const max = Math.floor(151);
-
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
 
     const catchPokemon = () => {
 

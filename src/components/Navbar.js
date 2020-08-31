@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse } from "mdbreact";
 import { Link } from 'react-router-dom';
 
-export const Navbar = () => {
+export const Navbar = ({ checkboxTheme }) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -27,6 +27,9 @@ export const Navbar = () => {
                     <MDBNavItem>
                         <MDBNavLink to={"/pokedex"}>Catch 'Em All</MDBNavLink>
                     </MDBNavItem>
+                </MDBNavbarNav>
+                <MDBNavbarNav right>
+                    {checkboxTheme}
                 </MDBNavbarNav>
             </MDBCollapse>
         </MDBNavbar>
