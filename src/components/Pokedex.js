@@ -16,7 +16,9 @@ export const Pokedex = () => {
     const [pokemonNumber, setPokemonNumber] = useState(151);
 
     useEffect(() => {
+        document.title = "Catch 'Em All";
         encounterWildPokemon();
+        // eslint-disable-next-line
     }, []);
 
     const encounterWildPokemon = () => {
@@ -31,7 +33,6 @@ export const Pokedex = () => {
         );
 
     }
-
 
     const catchPokemon = () => {
 

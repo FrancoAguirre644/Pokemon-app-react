@@ -12,7 +12,9 @@ export const Pokemons = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        document.title = "Poke-App";
         fetchPokemons(1, 151);
+        // eslint-disable-next-line
     }, []);
 
     const fetchPokemons = async (iPokemonNumber, pokemonNumber) => {

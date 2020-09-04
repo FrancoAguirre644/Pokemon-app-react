@@ -11,9 +11,10 @@ export const Pokemon = (props) => {
     const [pokemon, setPokemon] = useState(undefined);
     const [error, setError] = useState('');
 
-
     useEffect(() => {
+        document.title = "Pokemon";
         selectPokemon(props.match.params.id);
+        // eslint-disable-next-line
     }, []);
 
     const handleSubmit = (e) => {
