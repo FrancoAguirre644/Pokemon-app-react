@@ -7,7 +7,7 @@ import { Navbar } from './components/Navbar';
 import { Pokemons } from './components/Pokemons';
 import { Pokemon } from './components/Pokemon';
 import { Pokedex } from './components/Pokedex';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./helpers/themes/GlobalStyles";
 import { lightTheme, darkTheme } from "./helpers/themes/themes";
@@ -43,7 +43,7 @@ function App() {
 
         <div className="view">
 
-          <BrowserRouter>
+          <HashRouter basename='/' >
 
             <Navbar checkboxTheme={checkboxTheme} />
 
@@ -55,7 +55,7 @@ function App() {
 
             </Switch>
 
-          </BrowserRouter>
+          </HashRouter >
 
         </div>
       </>
