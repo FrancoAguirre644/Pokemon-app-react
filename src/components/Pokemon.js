@@ -1,31 +1,42 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { MDBProgress, MDBCard, MDBInput, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact';
+import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView } from 'mdbreact'
 import { typeColors } from '../helpers/typeColors/typeColors';
 import { typeColorsCards } from '../helpers/typeColors/typeColorsCards';
-import { Pokemons } from '../components/Pokemons';
 import PokemonService from '../services/pokemon.service';
 
-export const Pokemon = () => {
+export const Pokemon = (props) => {
 
     const [search, setSearch] = useState("");
     const [pokemon, setPokemon] = useState(undefined);
+    const [error, setError] = useState('');
+
+
+    useEffect(() => {
+        selectPokemon(props.match.params.id);
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         selectPokemon(search);
-
     }
 
     const selectPokemon = (search) => {
 
-        if (search === "") return;
+        if (search === "") {
+            setError("Please insert a pokemon name.");
+            return pokemon;
+        }
 
         PokemonService.getPokemon(search).then(
             (response) => {
                 setPokemon(response.data);
+                props.history.push(`/pokemons/${search}`);
+                setError("");
             },
             (error) => {
                 console.log(error);
+                setError("Pokemon not found.");
             }
         );
 
@@ -35,7 +46,7 @@ export const Pokemon = () => {
 
         <Fragment >
 
-            <MDBRow className="justify-content-center p-2">
+            <MDBRow className="justify-content-center p-3">
 
                 <MDBCol md="5">
 
@@ -43,6 +54,8 @@ export const Pokemon = () => {
 
                         <MDBInput label="Pokemon name" onChange={(e) => setSearch(e.target.value)} />
                     </form>
+
+                    {(error === '') ? '' : <div className="mt-4 text-center">{error}</div>}
 
                 </MDBCol>
 
@@ -53,8 +66,56 @@ export const Pokemon = () => {
 
                     <MDBCol md="4">
                         <MDBCard className="p-2" style={{ backgroundColor: typeColorsCards[pokemon.types[0].type.name] }}>
-                            <button className="btn-remove" onClick={() => setPokemon(undefined)} ><i class="fas fa-times"></i></button>
-                            <img className="sprite" src={pokemon.sprites.front_default} alt="pokemon-front" />
+                            <MDBCarousel
+                                activeItem={1}
+                                length={4}
+                                showControls={true}
+                                showIndicators={false}
+                                slide
+                            >
+                                <MDBCarouselInner >
+                                    <MDBCarouselItem itemId="1">
+                                        <MDBView>
+                                            <img
+                                                className="sprite"
+                                                src={pokemon.sprites.front_default}
+                                                alt="First slide"
+                                                height="150"
+                                            />
+                                        </MDBView>
+                                    </MDBCarouselItem>
+                                    <MDBCarouselItem itemId="2">
+                                        <MDBView>
+                                            <img
+                                                className="sprite"
+                                                src={pokemon.sprites.back_default}
+                                                alt="Second slide"
+                                                height="150"
+                                            />
+                                        </MDBView>
+                                    </MDBCarouselItem>
+                                    <MDBCarouselItem itemId="3">
+                                        <MDBView>
+                                            <img
+                                                className="sprite"
+                                                src={pokemon.sprites.front_shiny}
+                                                alt="Second slide"
+                                                height="150"
+                                            />
+                                        </MDBView>
+                                    </MDBCarouselItem>
+                                    <MDBCarouselItem itemId="4">
+                                        <MDBView>
+                                            <img
+                                                className="sprite"
+                                                src={pokemon.sprites.back_shiny}
+                                                alt="Second slide"
+                                                height="150"
+                                            />
+                                        </MDBView>
+                                    </MDBCarouselItem>
+                                </MDBCarouselInner>
+                            </MDBCarousel>
 
                             <MDBCardTitle className="text-center text-uppercase font-weight-bold text-black">{pokemon.name}</MDBCardTitle>
                             <div className="container text-center mb-3">
@@ -78,9 +139,7 @@ export const Pokemon = () => {
                                 {
                                     pokemon.abilities.map((ability, i) => {
                                         return (
-
-                                            <div key={i}>{ability.ability.name} </div>
-
+                                            <div key={i}><p>{ability.ability.name}</p></div>
                                         )
                                     })
                                 }
@@ -110,10 +169,6 @@ export const Pokemon = () => {
 
                 </MDBRow>)
 
-            }
-
-            {
-                !pokemon && (<Pokemons selectPokemon={selectPokemon} />)
             }
 
         </Fragment >

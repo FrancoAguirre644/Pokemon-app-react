@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse } from "mdbreact";
 import { Link } from 'react-router-dom';
+import pokeball from '../assets/pokeball.png';
 
 export const Navbar = ({ checkboxTheme }) => {
 
@@ -15,7 +16,7 @@ export const Navbar = ({ checkboxTheme }) => {
         <MDBNavbar dark expand="md" >
             <MDBNavbarBrand>
                 <Link to="/">
-                    <img className="white-text" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Pokebola-pokeball-png-0.png" alt="pokeball" width="40" height="35" />
+                    <img className="white-text" src={pokeball} alt="pokeball" width="40" height="35" />
                 </Link>
             </MDBNavbarBrand>
             <MDBNavbarToggler onClick={toggleCollapse} />

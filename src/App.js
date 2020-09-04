@@ -4,6 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import { Navbar } from './components/Navbar';
+import { Pokemons } from './components/Pokemons';
 import { Pokemon } from './components/Pokemon';
 import { Pokedex } from './components/Pokedex';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -48,7 +49,8 @@ function App() {
 
             <Switch>
 
-              <Route exact path="/" component={Pokemon} />
+              <Route exact path="/" component={Pokemons} />
+              <Route path="/pokemons/:id" component={Pokemon} />
               <Route exact path="/pokedex" component={Pokedex} />
 
             </Switch>

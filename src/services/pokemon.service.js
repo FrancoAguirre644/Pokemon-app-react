@@ -6,14 +6,15 @@ const getPokemon = (search) => {
     return axios.get(API_URL + search);
 }
 
-const getpokemonId = () => {
-    const min = Math.ceil(1);
-    const max = Math.floor(386);
+const getpokemonId = (iPokemonNumber, pokemonNumber) => {
+    const min = Math.ceil(iPokemonNumber);
+    const max = Math.floor(pokemonNumber);
 
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+
 export default {
     getPokemon,
-    getpokemonId
+    getpokemonId,
 };

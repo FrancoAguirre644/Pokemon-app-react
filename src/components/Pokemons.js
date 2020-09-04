@@ -3,11 +3,13 @@ import { MDBRow, MDBCol, MDBCard } from 'mdbreact';
 import { typeColors } from '../helpers/typeColors/typeColors';
 import { typeColorsCards } from '../helpers/typeColors/typeColorsCards';
 import PokemonService from '../services/pokemon.service';
+import { Link } from 'react-router-dom';
 
-export const Pokemons = ({ selectPokemon }) => {
+export const Pokemons = () => {
 
     const [pokedex, setPokedex] = useState([]);
     const [typePokemon, setTypePokemon] = useState("bug");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchPokemons(1, 151);
@@ -31,6 +33,9 @@ export const Pokemons = ({ selectPokemon }) => {
                     state.sort((a, b) => (a.id - b.id));
                     return state;
                 });
+
+                setLoading(false);
+
             },
             (error) => {
                 console.log(error);
@@ -41,6 +46,8 @@ export const Pokemons = ({ selectPokemon }) => {
 
     const handleChangeGeneration = (e) => {
         const generation = e.target.value;
+
+        setLoading(true);
 
         switch (generation) {
             case "1":
@@ -169,22 +176,22 @@ export const Pokemons = ({ selectPokemon }) => {
 
             <MDBRow className="justify-content-center p-2">
 
-                <MDBCol md="3" className="pl-2 pt-2 text-center">
+                <MDBCol md="3" className="pt-2 text-center">
 
                     <select className="form-control" onChange={(e) => handleChangeGeneration(e)} >
                         <option value="1">First generation</option>
                         <option value="2">Second generation</option>
                         <option value="3">Third generation</option>
                         <option value="4">Fourth generation</option>
-                        <option value="4">Fifth generation</option>
-                        <option value="4">Sixth generation</option>
-                        <option value="4">Seventh generation</option>
-                        <option value="4">Eighth generation</option>
+                        <option value="5">Fifth generation</option>
+                        <option value="6">Sixth generation</option>
+                        <option value="7">Seventh generation</option>
+                        <option value="8">Eighth generation</option>
                     </select>
 
                 </MDBCol>
 
-                <MDBCol md="3" className="pl-2 pt-2 text-center">
+                <MDBCol md="3" className="pt-2 text-center">
 
                     <select className="form-control" onChange={(e) => handleType(e)} >
                         <option value="bug">Type Bug</option>
@@ -211,39 +218,45 @@ export const Pokemons = ({ selectPokemon }) => {
 
             <MDBRow className="justify-content-center p-3">
 
-                {pokedex && (pokedex.filter(p => (p.types.length === 2) ? p.types[0].type.name.includes(typePokemon) || p.types[1].type.name.includes(typePokemon) : p.types[0].type.name.includes(typePokemon)).map(pokemon => {
-                    return (
+                {loading ? <div className="mx-auto">
+                    <div className="spinner-border text-info" role="status">
+                    </div>
+                </div>
 
-                        <MDBCol md="3" className="p-2 text-center">
-                            <MDBCard className="pointer" style={{ backgroundColor: typeColorsCards[pokemon.types[0].type.name] }} onClick={() => selectPokemon(pokemon.id)} >
+                    : (pokedex.filter(p => (p.types.length === 2) ? p.types[0].type.name.includes(typePokemon) || p.types[1].type.name.includes(typePokemon) : p.types[0].type.name.includes(typePokemon)).map(pokemon => {
+                        return (
 
-                                <div className="text-capitalize font-weight-bold pt-2">
-                                    {pokemon.name} (#{pokemon.id})
-                                    </div>
+                            <MDBCol md="3" className="p-2 text-center" key={pokemon.id}>
+                                <MDBCard className="pointer" style={{ backgroundColor: typeColorsCards[pokemon.types[0].type.name] }} >
+                                    <div className="text-capitalize font-weight-bold pt-2">
+                                        {pokemon.name} (#{pokemon.id})
+                                        </div>
+                                    <Link to={"/pokemons/" + pokemon.id}>
 
-                                <img className="sprite" src={pokemon.sprites.front_default} alt={pokemon.name}
-                                />
+                                        <img className="sprite" src={pokemon.sprites.front_default} alt={pokemon.name}
+                                        />
 
-                                <div className="container text-center mb-3">
+                                        <div className="container text-center mb-3">
 
-                                    {
-                                        pokemon.types.map((type, i) => {
-                                            return (
-                                                <div key={i} className="type text-uppercase font-weight-bolder text-black" style={{ backgroundColor: typeColors[type.type.name] }}>
-                                                    {type.type.name}
-                                                </div>
-                                            )
-                                        })
-                                    }
+                                            {
+                                                pokemon.types.map((type, i) => {
+                                                    return (
+                                                        <div key={i} className="type text-uppercase font-weight-bolder text-black" style={{ backgroundColor: typeColors[type.type.name] }}>
+                                                            {type.type.name}
+                                                        </div>
+                                                    )
+                                                })
+                                            }
 
-                                </div>
+                                        </div>
+                                    </Link>
 
-                            </MDBCard>
-                        </MDBCol>
+                                </MDBCard>
+                            </MDBCol>
 
+                        )
+                    })
                     )
-                })
-                )
                 }
 
             </MDBRow>
